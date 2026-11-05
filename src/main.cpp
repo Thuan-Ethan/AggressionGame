@@ -7,7 +7,8 @@
 #include "imguiThemes.h"
 #pragma endregion
 
-#include "World/worldConfig.h"
+#include "World/WorldConfig.h"
+#include "Building/CastleConfig.h"
 
 // Update: A function that updates the game state based on the elapsed time since the last frame.
 void Update(float dt) {
