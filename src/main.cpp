@@ -7,91 +7,43 @@
 #include "imguiThemes.h"
 #pragma endregion
 
+#include "World/worldConfig.h"
 
+// Update: A function that updates the game state based on the elapsed time since the last frame.
+void Update(float dt) {
+	// Update your game logic here
+}
 
-int main(void)
-{
+// Draw: A function that handles the rendering of game objects and UI elements.
+void Draw() {
+	BeginDrawing();
+	ClearBackground(RAYWHITE);
+	// Draw your game objects here
+	EndDrawing();
+}
 
-	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-	InitWindow(800, 450, "raylib [core] example - basic window");
+int main() {
+	InitWindow(800, 600, "basic window");
 
-#pragma region imgui
-	rlImGuiSetup(true);
+	// Use GetMonitorWidth and GetMonitorHeight to get the current monitor's width and height
+	int screenWidth = GetMonitorWidth(0);
+	int screenHeight = GetMonitorHeight(0);
 
-	//you can use whatever imgui theme you like!
-	//ImGui::StyleColorsDark();
-	//imguiThemes::yellow();
-	//imguiThemes::gray();
-	imguiThemes::green();
-	//imguiThemes::red();
-	//imguiThemes::embraceTheDarkness();
+	SetWindowSize(screenWidth, screenHeight);
+	//SetWindowPosition(0, 0);
 
+	MaximizeWindow();
 
-	ImGuiIO &io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-	io.FontGlobalScale = 2;
+	SetTargetFPS(60);
 
-	ImGuiStyle &style = ImGui::GetStyle();
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-	{
-		//style.WindowRounding = 0.0f;
-		style.Colors[ImGuiCol_WindowBg].w = 0.5f;
-		//style.Colors[ImGuiCol_DockingEmptyBg].w = 0.f;
+	while (!WindowShouldClose()) {
+		float dt = GetFrameTime();
+
+		Update(dt);
+
+		Draw();
 	}
-
-#pragma endregion
-
-
-
-	while (!WindowShouldClose())
-	{
-		BeginDrawing();
-		ClearBackground(RAYWHITE);
-
-
-	#pragma region imgui
-		rlImGuiBegin();
-
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, {});
-		ImGui::PushStyleColor(ImGuiCol_DockingEmptyBg, {});
-		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
-		ImGui::PopStyleColor(2);
-	#pragma endregion
-
-
-		ImGui::Begin("Test");
-
-		ImGui::Text("Hello");
-		ImGui::Button("Button");
-		ImGui::Button("Button2");
-
-		ImGui::End();
-
-
-		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
-
-	#pragma region imgui
-		rlImGuiEnd();
-
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			ImGui::UpdatePlatformWindows();
-			ImGui::RenderPlatformWindowsDefault();
-		}
-	#pragma endregion
-
-		EndDrawing();
-	}
-
-
-#pragma region imgui
-	rlImGuiShutdown();
-#pragma endregion
-
-
-
+	
 	CloseWindow();
 
 	return 0;
