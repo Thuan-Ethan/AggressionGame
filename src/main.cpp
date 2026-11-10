@@ -10,42 +10,112 @@
 #include "World/WorldConfig.h"
 #include "Building/CastleConfig.h"
 
+Camera2D StaticCamera() {
+	Camera2D camera = {};
+
+	// The point in the world that the camera looks at
+	camera.target = {
+		WORLD_WIDTH / 2.0f,
+		WORLD_HEIGHT / 2.0f
+	};
+
+	// The center position of the screen
+	camera.offset = {
+		GetScreenWidth() / 2.0f,
+		GetScreenHeight() / 2.0f
+	};
+
+	camera.rotation = 0.0f;
+
+	// Fit the entire world into the screen
+	float zoomX = (float)GetScreenWidth() / WORLD_WIDTH;
+	float zoomY = (float)GetScreenHeight() / WORLD_HEIGHT;
+
+	camera.zoom = fminf(zoomX, zoomY);
+
+	return camera;
+}
+
+
+
 // Update: A function that updates the game state based on the elapsed time since the last frame.
 void Update(float dt) {
 	// Update your game logic here
 }
 
 // Draw: A function that handles the rendering of game objects and UI elements.
-void Draw() {
-	BeginDrawing();
-	ClearBackground(RAYWHITE);
-	// Draw your game objects here
-	EndDrawing();
+void Draw(const Camera2D& camera)
+{
+    BeginDrawing();
+
+    ClearBackground(RAYWHITE);
+
+    // Everything inside this block uses world coordinates
+    BeginMode2D(camera);
+
+    // Draw world background
+    DrawRectangle(
+        0, 0,
+        WORLD_WIDTH, WORLD_HEIGHT,
+        DARKBLUE
+    );
+
+    // Draw world boundaries
+    DrawRectangleLines(
+        0, 0,
+        WORLD_WIDTH, WORLD_HEIGHT,
+        BLACK
+    );
+
+	// Vertical center line
+    DrawLine(
+        WORLD_WIDTH / 2, 0,
+        WORLD_WIDTH / 2, WORLD_HEIGHT,
+        WHITE
+    );
+
+	// Horizontal center line
+    DrawLine(
+        0, WORLD_HEIGHT / 2,
+        WORLD_WIDTH, WORLD_HEIGHT / 2,
+        WHITE
+    );
+
+    EndMode2D();
+
+    // UI should be drawn outside BeginMode2D()
+    DrawFPS(10, 10);
+
+    EndDrawing();
 }
 
-int main() {
-	InitWindow(800, 600, "basic window");
+int main()
+{
+    InitWindow(800, 600, "Aggression Game");
 
-	// Use GetMonitorWidth and GetMonitorHeight to get the current monitor's width and height
-	int screenWidth = GetMonitorWidth(0);
-	int screenHeight = GetMonitorHeight(0);
+    SetWindowState(FLAG_WINDOW_RESIZABLE);
 
-	SetWindowSize(screenWidth, screenHeight);
-	//SetWindowPosition(0, 0);
+    int screenWidth = GetMonitorWidth(0);
+    int screenHeight = GetMonitorHeight(0);
 
-	MaximizeWindow();
+    SetWindowSize(screenWidth, screenHeight);
+    MaximizeWindow();
 
-	SetTargetFPS(60);
+    SetTargetFPS(60);
 
-	while (!WindowShouldClose()) {
-		float dt = GetFrameTime();
+    // Create camera after setting the window size
+    Camera2D camera = StaticCamera();
 
-		Update(dt);
+    while (!WindowShouldClose())
+    {
+        float dt = GetFrameTime();
 
-		Draw();
-	}
-	
-	CloseWindow();
+        Update(dt);
 
-	return 0;
+        Draw(camera);
+    }
+
+    CloseWindow();
+
+    return 0;
 }
