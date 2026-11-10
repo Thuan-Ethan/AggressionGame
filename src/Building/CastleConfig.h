@@ -3,12 +3,33 @@
 
 //#include "World/WorldConfig.h"
 
+// Define the factions in the game
+enum class Faction {
+	Player,
+	Enemy,
+	Neutral
+};
 
-struct CastleConfig{
-	// Castle configuration constants
-	static constexpr int CASTLE_WIDTH = 200;  // Width of the castle
-	static constexpr int CASTLE_HEIGHT = 300; // Height of the castle
 
-	int health;
-	
+struct Castle
+{
+    // Position and size of the castle area
+    Rectangle bounds;
+
+    // Castle owner
+    Faction faction;
+
+    // Current health
+    float health;
+
+    // Is this a main castle?
+    bool isMainCastle;
+
+    // Constructor
+    Castle(
+        Rectangle bounds,
+        Faction faction,
+        float health,
+        bool isMain
+    );
 };

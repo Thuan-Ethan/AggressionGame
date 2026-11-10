@@ -41,6 +41,30 @@ Camera2D StaticCamera() {
 // Update: A function that updates the game state based on the elapsed time since the last frame.
 void Update(float dt) {
 	// Update your game logic here
+    // Player main castle
+    Castle playerCastle(
+        { 100, 100, 200, 150 },
+        Faction::Player,
+        1000.0f,
+        true
+    );
+
+    // Enemy main castle
+    Castle enemyCastle(
+        { 980, 100, 200, 150 },
+        Faction::Enemy,
+        1000.0f,
+        true
+    );
+
+    // Neutral secondary castle
+    Castle neutralCastle(
+        { 500, 450, 150, 120 },
+        Faction::Neutral,
+        500.0f,
+        false
+    );
+
 }
 
 // Draw: A function that handles the rendering of game objects and UI elements.
