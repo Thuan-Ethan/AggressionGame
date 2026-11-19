@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "Building/CastleConfig.h"
+#include "Player/PlayerConfig.h"
 
 class Game
 {
@@ -16,6 +17,8 @@ private:
     // Trạng thái của game
     Camera2D camera{};
     std::vector<Castle> castles;
+    Player player;
+
 
     // Hàm hỗ trợ
     void UpdateCamera();

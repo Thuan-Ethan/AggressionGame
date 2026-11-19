@@ -81,3 +81,4 @@ void Game::DrawCastles() const
     for (const Castle& c : castles)
         DrawCastle(c);
 }
+

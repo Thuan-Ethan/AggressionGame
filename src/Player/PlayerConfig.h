@@ -13,7 +13,7 @@ struct Player
 
     Player(Vector2 position);
 
-    void PlayerMove();
+    void PlayerMove(float dt);
 
     void Update(float dt);
     void Draw() const;

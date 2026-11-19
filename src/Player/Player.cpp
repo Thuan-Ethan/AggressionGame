@@ -6,8 +6,8 @@ Player::Player(Vector2 position)
     : position(position), radius(PLAYER_RADIUS), speed(PLAYER_SPEED), health(100.0f)
 {}
 
-void Player::PlayerMove() {
-    Vector2 dir = { 0, 0 };
+void Player::PlayerMove(float dt) {
+    Vector2 dir = { 0.0f, 0.0f };
 
     if (IsKeyDown(KEY_W)) {
         dir.y += 1;
@@ -37,8 +37,12 @@ void Player::PlayerMove() {
     }
 
     // Update Position
-    position.x += dir.x * speed * deltaTime;
-    position.y += dir.y * speed * deltaTime;
+    position.x += dir.x * speed * dt;
+    position.y += dir.y * speed * dt;
+
+    // Giữ cả hình tròn trong thế giới
+    position.x = Clamp(position.x, radius, WORLD_WIDTH - radius);
+    position.y = Clamp(position.y, radius, WORLD_HEIGHT - radius);
 }
 
 void Player::Update(float dt)
@@ -49,11 +53,13 @@ void Player::Update(float dt)
     // 4. Cập nhật position theo dir, speed, dt
     // 5. Giữ position trong thế giới
 
-    PlayerMove();
+    PlayerMove(dt);
 
 }
 
 void Player::Draw() const
 {
     // Vẽ hình tròn tại position
+    DrawCircleV(position, radius, YELLOW);
+    DrawCircleLines((int)position.x, (int)position.y, radius, BLACK);
 }

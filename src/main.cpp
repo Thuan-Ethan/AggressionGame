@@ -1,4 +1,4 @@
-#include "raylib.h"
+    #include "raylib.h"
 #include <iostream>
 #include <array>
 #include <cmath>     // fminf
@@ -27,6 +27,8 @@ int main()
     {
         game.Update(GetFrameTime());
         game.Draw();
+
+
     }
 
     CloseWindow();
