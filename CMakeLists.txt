@@ -62,7 +62,7 @@ else()
 
 endif()
 
-target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES}  "src/World/WorldConfig.h" "src/World/World.cpp" "src/Building/CastleConfig.h" "src/Building/Castle.cpp")
+target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES}  "src/World/WorldConfig.h" "src/World/World.cpp" "src/Building/CastleConfig.h" "src/Building/Castle.cpp" "src/Game/GameConfig.h" "src/Game/Game.cpp")
 
 
 if(MSVC) # If using the VS compiler...
@@ -77,7 +77,10 @@ if(MSVC) # If using the VS compiler...
 
 endif()
 
-target_include_directories("${CMAKE_PROJECT_NAME}" PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+target_include_directories("${CMAKE_PROJECT_NAME}" PUBLIC 
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/"
+)
 
 
 
