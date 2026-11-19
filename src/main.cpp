@@ -27,8 +27,6 @@ int main()
     {
         game.Update(GetFrameTime());
         game.Draw();
-
-
     }
 
     CloseWindow();

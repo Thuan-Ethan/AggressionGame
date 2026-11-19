@@ -10,11 +10,11 @@ void Player::PlayerMove(float dt) {
     Vector2 dir = { 0.0f, 0.0f };
 
     if (IsKeyDown(KEY_W)) {
-        dir.y += 1;
+        dir.y -= 1;
     }
 
     if (IsKeyDown(KEY_S)) {
-        dir.y -= 1;
+        dir.y += 1;
     }
 
     if (IsKeyDown(KEY_A)) {

@@ -21,6 +21,7 @@ static void DrawCastle(const Castle& c)
 }
 
 Game::Game()
+    : player({ CASTLE_MARGIN + MAIN_CASTLE_WIDTH + 50.0f, WORLD_HEIGHT / 2.0f })
 {
     const float centerY = (WORLD_HEIGHT - MAIN_CASTLE_HEIGHT) / 2.0f;
 
@@ -36,7 +37,7 @@ Game::Game()
 
 void Game::Update(float dt)
 {
-    (void)dt;
+    player.Update(dt);
     UpdateCamera();
     // Sau này: cập nhật tướng, lính, thành...
 }
@@ -60,6 +61,7 @@ void Game::Draw() const
     BeginMode2D(camera);
     DrawWorld();
     DrawCastles();
+    player.Draw();
     // Sau này: DrawGeneral(); DrawUnits(); ...
     EndMode2D();
 
