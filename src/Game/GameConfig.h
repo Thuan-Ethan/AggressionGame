@@ -1,6 +1,7 @@
 #pragma once
-#include <vector>
 #include "raylib.h"
+#include <vector>
+
 #include "Building/CastleConfig.h"
 
 class Game
